@@ -400,3 +400,335 @@ body {
         padding-inline: 1rem;
     }
 }
+
+.rotating-text {
+    position: relative;
+    height: 2rem; /* keeps layout stable */
+    overflow: hidden;
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+}
+
+.rotating-text span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rotateText 9s linear infinite 0s;
+}
+
+/* Each span gets a different delay so they appear in sequence */
+.rotating-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+.rotating-text span:nth-child(2) {
+    animation-delay: 3s;
+}
+.rotating-text span:nth-child(3) {
+    animation-delay: 6s;
+}
+
+@keyframes rotateText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    40% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.hero-rotator-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem; /* space above the paragraph */
+}
+
+.rotator-label {
+    font-size: 0.8rem;
+    color: #475569;
+}
+/* make hero a stage for slides */
+.hero-rotator {
+    position: relative;
+    min-height: 360px;
+    overflow: hidden;
+}
+
+/* each slide fills the whole red area */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2.5rem;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* show current slide */
+.hero-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* small subtitle under h1 */
+.hero-subtitle {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+}
+
+/* little dots at bottom right of hero */
+.hero-dots {
+    position: absolute;
+    bottom: 1.3rem;
+    right: 1.3rem;
+    display: flex;
+    gap: 0.4rem;
+}
+
+.hero-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(15, 23, 42, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hero-dots button.is-active {
+    background: #0e7490;
+    transform: scale(1.15);
+}
+
+/* responsive: stack hero on small screens */
+@media (max-width: 980px) {
+    .hero-slide {
+        grid-template-columns: 1fr;
+        padding-bottom: 4.5rem; /* leave space for dots */
+    }
+}
+
+
+/* Services card (right side when in 'Services' slide) */
+.services-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.2rem;
+    padding: 1.4rem 1.3rem;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(14, 116, 144, 0.1);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.6s ease;
+}
+
+.services-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.departments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem 1rem;
+}
+
+.dept-item {
+    background: rgba(248, 250, 252, 0.8);
+    border: 1px solid rgba(14, 116, 144, 0.05);
+    border-radius: 0.9rem;
+    padding: 0.8rem 0.9rem;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dept-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(14, 116, 144, 0.15);
+}
+
+.dept-item h5 {
+    font-size: 1rem;
+    color: #0e7490;
+    margin-bottom: 0.3rem;
+}
+
+.dept-item p {
+    font-size: 0.85rem;
+    color: #475569;
+    margin: 0;
+}
+/* ABOUT US card (for the 'About' slide) */
+.about-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.2rem;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(14, 116, 144, 0.1);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.6s ease;
+}
+
+.about-card h4 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+}
+
+.about-card p {
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.about-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.about-list li {
+    background: rgba(14, 116, 144, 0.08);
+    border-radius: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+/* NAVBAR */
+.topbar {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.logo-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+}
+
+.navlinks {
+    display: flex;
+    gap: 1.2rem;
+    list-style: none;
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.navlinks a:hover {
+    color: var(--primary);
+}
+
+/* Dropdown styling */
+.navlinks li {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background: #ffffff;
+    border-radius: 0.6rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    list-style: none;
+    padding: 0.4rem 0;
+    z-index: 10;
+    min-width: 160px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #0f172a;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+    background: rgba(14, 116, 144, 0.08);
+    color: var(--primary);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.availability-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.availability-row label {
+    flex: 1;
+}
+
+.date-input {
+    width: 100%;
+    background: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    border-radius: 0.7rem;
+    padding: 0.5rem 0.6rem;
+    font-family: inherit;
+}
+
+.inline-checkbox {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #475569;
+}
+.navlinks a.nav-active {
+    color: var(--primary);
+    border-bottom: 2px solid rgba(14, 116, 144, 0.35);
+    padding-bottom: 0.2rem;
+}
