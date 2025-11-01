@@ -1,44 +1,56 @@
-import { useState } from "react"
+import { useState } from "react";
 
 export default function RegisterDoctor() {
-  const [name, setName] = useState("")
-  const [specialization, setSpecialization] = useState("")
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
-  const [experience, setExperience] = useState("")
-  const [availableFrom, setAvailableFrom] = useState("")
-  const [availableTo, setAvailableTo] = useState("")
+  const [name, setName] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [experience, setExperience] = useState("");
+  const [availableFrom, setAvailableFrom] = useState("");
+  const [availableTo, setAvailableTo] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
 
     const formData = {
       name,
       specialization,
       email,
       phone,
-      experience,
+      experience: Number(experience), // convert to number
       availableFrom,
       availableTo,
-    }
+    };
 
-    const response = await fetch("http://localhost:5000/api/doctors/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/doctors/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        })
 
-    if (response.ok) {
-      alert("Doctor registered successfully!")
-      setName("")
-      setSpecialization("")
-      setEmail("")
-      setPhone("")
-      setExperience("")
-      setAvailableFrom("")
-      setAvailableTo("")
-    } else {
-      alert("Error registering doctor!")
+      if (response.ok) {
+        const savedDoctor = await response.json();
+        console.log("Saved doctor:", savedDoctor);
+
+        alert("Doctor registered successfully!");
+        setName("");
+        setSpecialization("");
+        setEmail("");
+        setPhone("");
+        setExperience("");
+        setAvailableFrom("");
+        setAvailableTo("");
+      } else {
+        const errorData = await response.json();
+        console.error("Backend error:", errorData);
+        alert("Error registering doctor: " + (errorData.message || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+      alert("Error connecting to server!");
     }
   }
 
@@ -105,5 +117,5 @@ export default function RegisterDoctor() {
         <button type="submit">Register Doctor</button>
       </form>
     </div>
-  )
+  );
 }
