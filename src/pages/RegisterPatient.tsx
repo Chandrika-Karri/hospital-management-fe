@@ -1,47 +1,85 @@
 import { useEffect, useState } from "react"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 type Doctor = {
-  id: string
+  _id: string
   name: string
   specialization?: string
 }
 
+type Slot = {
+  time: string
+  isBooked: boolean
+}
+
 export default function RegisterPatient() {
   const [doctors, setDoctors] = useState<Doctor[]>([])
+  const [slots, setSlots] = useState<Slot[]>([])   // ✅ NEW
   const [name, setName] = useState("")
   const [doctorId, setDoctorId] = useState("")
   const [description, setDescription] = useState("")
   const [emergency, setEmergency] = useState(false)
   const [time, setTime] = useState("")
+  const [date, setDate] = useState<string>("")
 
+  // Load doctors when the page loads
   useEffect(() => {
     async function loadDoctors() {
-      const response = await fetch("http://localhost:5000/api/doctors")
-      const data = await response.json()
+      const res = await fetch("http://localhost:4000/api/doctors")
+      const data = await res.json()
       setDoctors(data)
     }
-    loadDoctors()
-  }, [])
+    loadDoctors();
+  }, []);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  // Load slots whenever a doctor is selected
+  useEffect(() => {
+    if (!doctorId || !date) return;
 
-    const formData = {
-      name,
-      doctorId,
-      description,
-      emergency,
-      time,
+    async function loadSlots() {
+      const res = await fetch(`http://localhost:4000/api/doctors/${doctorId}/slots?date=${date}`);
+      const data = await res.json();
+      setSlots(data)
     }
 
-    await fetch("http://localhost:5000/api/patients/book", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(formData)
-    })
+    loadSlots();
+  }, [doctorId, date]);
 
-    alert("Appointment booked!")
-  }
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault()  // Prevent form reload
+
+  const formData = {
+    name,          // Patient name
+    doctorId,      // Selected doctor
+    description,   // Optional patient issue
+    emergency,     // Emergency flag
+    time,
+    date           // Selected time slot
+  };
+
+    await fetch("http://localhost:4000/api/patients/book", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+  });
+  
+
+  alert("Appointment booked successfully!");
+
+  const res2 = await fetch(`http://localhost:4000/api/doctors/${doctorId}/slots?date=${date}`)
+  const data2 = await res2.json()
+  setSlots(data2)
+
+  setName("")
+  setDescription("")
+  setEmergency(false)
+  setTime("")
+  setDate("")
+  
+}
+
 
   return (
     <div>
@@ -54,6 +92,7 @@ export default function RegisterPatient() {
           onChange={(e) => setName(e.target.value)}
           required
         />
+        
 
         <select
           value={doctorId}
@@ -62,16 +101,43 @@ export default function RegisterPatient() {
         >
           <option value="">Select Doctor</option>
           {doctors.map(doc => (
-            <option key={doc.id} value={doc.id}>{doc.name}</option>
+            <option key={doc._id} value={doc._id}>{doc.name}</option>
           ))}
         </select>
+        <label>
+        Appointment Date:
+        <DatePicker
+            selected={date ? new Date(date) : null}
+            onChange={(d: Date | null) =>
+              setDate(d ? d.toISOString().split("T")[0] : "")
+            }
+            dateFormat="yyyy-MM-dd"
+            minDate={new Date()}
+            placeholderText="Select appointment date"
+  />
+</label>
 
-        <input
-          type="datetime-local"
+
+        {/* Time slot selector */}
+        <select
           value={time}
           onChange={(e) => setTime(e.target.value)}
           required
-        />
+        >
+          <option value="">Select Time Slot</option>
+          {slots.map(slot => (
+            <option
+              key={slot.time}
+              value={slot.time}
+              style={{
+                color: slot.isBooked ? "red" : "green"
+              }}
+              disabled={slot.isBooked}
+            >
+              {slot.time} {slot.isBooked ? "(Booked)" : "(Available)"}
+            </option>
+          ))}
+        </select>
 
         <textarea
           placeholder="Describe the issue"
