@@ -24,7 +24,7 @@ export default function RegisterDoctor() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/doctors/register",
+        "http://localhost:5000/api/doctors/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
