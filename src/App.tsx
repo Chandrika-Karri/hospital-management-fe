@@ -2,6 +2,8 @@ import { Routes, Route, Link } from "react-router-dom"
 import Home from "./pages/Home"
 import RegisterPatient from "./pages/RegisterPatient"
 import RegisterDoctor from "./pages/RegisterDoctor"
+import AppointmentConfirmation from "./pages/AppointmentConfirmation";
+
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register-patient" element={<RegisterPatient />} />
         <Route path="/register-doctor" element={<RegisterDoctor />} />
+        <Route path="/appointment/:id" element={<AppointmentConfirmation />} />
+
       </Routes>
     </div>
   )

@@ -1,85 +1,92 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { useNavigate } from "react-router-dom";
 
 type Doctor = {
-  _id: string
-  name: string
-  specialization?: string
-}
+  _id: string;
+  name: string;
+  specialization?: string;
+};
 
 type Slot = {
-  time: string
-  isBooked: boolean
-}
+  time: string;
+  isBooked: boolean;
+};
 
 export default function RegisterPatient() {
-  const [doctors, setDoctors] = useState<Doctor[]>([])
-  const [slots, setSlots] = useState<Slot[]>([])   // ✅ NEW
-  const [name, setName] = useState("")
-  const [doctorId, setDoctorId] = useState("")
-  const [description, setDescription] = useState("")
-  const [emergency, setEmergency] = useState(false)
-  const [time, setTime] = useState("")
-  const [date, setDate] = useState<string>("")
+  const navigate = useNavigate(); // ✅ Must be inside the component
 
-  // Load doctors when the page loads
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [slots, setSlots] = useState<Slot[]>([]);
+  const [name, setName] = useState("");
+  const [doctorId, setDoctorId] = useState("");
+  const [description, setDescription] = useState("");
+  const [emergency, setEmergency] = useState(false);
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState<string>("");
+
+  // Load doctors on mount
   useEffect(() => {
     async function loadDoctors() {
-      const res = await fetch("http://localhost:4000/api/doctors")
-      const data = await res.json()
-      setDoctors(data)
+      const res = await fetch("http://localhost:4000/api/doctors");
+      const data = await res.json();
+      setDoctors(data);
     }
     loadDoctors();
   }, []);
 
-  // Load slots whenever a doctor is selected
+  // Load slots when doctor or date changes
   useEffect(() => {
     if (!doctorId || !date) return;
-
     async function loadSlots() {
-      const res = await fetch(`http://localhost:4000/api/doctors/${doctorId}/slots?date=${date}`);
+      const res = await fetch(
+        `http://localhost:4000/api/doctors/${doctorId}/slots?date=${date}`
+      );
       const data = await res.json();
-      setSlots(data)
+      setSlots(data);
     }
-
     loadSlots();
   }, [doctorId, date]);
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault()  // Prevent form reload
+    e.preventDefault();
 
-  const formData = {
-    name,          // Patient name
-    doctorId,      // Selected doctor
-    description,   // Optional patient issue
-    emergency,     // Emergency flag
-    time,
-    date           // Selected time slot
-  };
+    const formData = {
+      name,
+      doctorId,
+      description,
+      emergency,
+      time,
+      date,
+    };
 
-    await fetch("http://localhost:4000/api/patients/book", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData)
-  });
-  
+    const res = await fetch("http://localhost:4000/api/patients/book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-  alert("Appointment booked successfully!");
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.message || "Failed to book appointment");
+      return;
+    }
 
-  const res2 = await fetch(`http://localhost:4000/api/doctors/${doctorId}/slots?date=${date}`)
-  const data2 = await res2.json()
-  setSlots(data2)
+    const data = await res.json(); // ✅ The created patient
 
-  setName("")
-  setDescription("")
-  setEmergency(false)
-  setTime("")
-  setDate("")
-  
-}
+    // Redirect to appointment confirmation page
+    navigate(`/appointment/${data._id}`);
 
+    // Optional: reset form fields
+    setName("");
+    setDoctorId("");
+    setDescription("");
+    setEmergency(false);
+    setTime("");
+    setDate("");
+    setSlots([]);
+  }
 
   return (
     <div>
@@ -92,7 +99,6 @@ export default function RegisterPatient() {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        
 
         <select
           value={doctorId}
@@ -100,13 +106,16 @@ export default function RegisterPatient() {
           required
         >
           <option value="">Select Doctor</option>
-          {doctors.map(doc => (
-            <option key={doc._id} value={doc._id}>{doc.name}</option>
+          {doctors.map((doc) => (
+            <option key={doc._id} value={doc._id}>
+              {doc.name}
+            </option>
           ))}
         </select>
+
         <label>
-        Appointment Date:
-        <DatePicker
+          Appointment Date:
+          <DatePicker
             selected={date ? new Date(date) : null}
             onChange={(d: Date | null) =>
               setDate(d ? d.toISOString().split("T")[0] : "")
@@ -114,9 +123,8 @@ export default function RegisterPatient() {
             dateFormat="yyyy-MM-dd"
             minDate={new Date()}
             placeholderText="Select appointment date"
-  />
-</label>
-
+          />
+        </label>
 
         {/* Time slot selector */}
         <select
@@ -125,13 +133,11 @@ export default function RegisterPatient() {
           required
         >
           <option value="">Select Time Slot</option>
-          {slots.map(slot => (
+          {slots.map((slot) => (
             <option
               key={slot.time}
               value={slot.time}
-              style={{
-                color: slot.isBooked ? "red" : "green"
-              }}
+              style={{ color: slot.isBooked ? "red" : "green" }}
               disabled={slot.isBooked}
             >
               {slot.time} {slot.isBooked ? "(Booked)" : "(Available)"}
@@ -157,5 +163,5 @@ export default function RegisterPatient() {
         <button type="submit">Book Appointment</button>
       </form>
     </div>
-  )
+  );
 }
