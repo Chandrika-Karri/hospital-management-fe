@@ -36,6 +36,15 @@ const HERO_SLIDES = [
         primary: "Our story",
         secondary: "Meet the team",
     },
+    {
+        id: "heroes",
+        tag: "● Our team",
+        title: "Meet the Heroes",
+        subtitle: "Leaders shaping healthcare innovation",
+        text: "Behind every great hospital are exceptional minds working with passion, precision, and care.",
+        primary: "Join our mission",
+        secondary: "Learn more",
+    },
 ];
 
 // 5. main component
@@ -69,122 +78,158 @@ export default function Home() {
                     <div className="hero-orb orb-2"></div>
                     <div className="hero-orb orb-3"></div>
 
-                    {/* 14. LEFT side: text, buttons, metrics */}
-                    <div className="hero-neon-left">
-                        {/* 15. small tag/pill on top */}
-                        <div className="hero-tag">
-                            <span className="status-dot"></span>
-                            {current.tag}
-                        </div>
+                    {current.id === "heroes" ? (
+                        // ✅ SPECIAL FULL-WIDTH LAYOUT FOR "MEET THE HEROES"
+                        <div className="hero-heroes-full">
+                            <h2 className="heroes-title">Meet the Heroes</h2>
+                            <p className="heroes-sub">
+                                Passionate leaders dedicated to modern healthcare.
+                            </p>
 
-                        {/* 16. main title */}
-                        <h1 className="hero-title">{current.title}</h1>
-
-                        {/* 17. subheading */}
-                        <p className="hero-subtitle">{current.subtitle}</p>
-
-                        {/* 18. description */}
-                        <p className="hero-text">{current.text}</p>
-
-                        {/* 19. main actions */}
-                        <div className="hero-actions">
-                            <button className="btn btn-neon">{current.primary}</button>
-                            <button className="btn btn-glass">{current.secondary}</button>
-                        </div>
-
-                        {/* 20. bottom metrics */}
-                        <div className="hero-metrics">
-                            <div className="metric-card">
-                                <h3>120+</h3>
-                                <p>Active patients</p>
-                            </div>
-                            <div className="metric-card">
-                                <h3>32</h3>
-                                <p>Specialist doctors</p>
-                            </div>
-                            <div className="metric-card">
-                                <h3>98%</h3>
-                                <p>Satisfaction</p>
+                            <div className="heroes-row">
+                                <div className="hero-person">
+                                    <img src="/src/img/jf.jpg" alt="Director" />
+                                    <h5>Dr. Jannatul Ferdous</h5>
+                                    <p>Medical Director</p>
+                                </div>
+                                <div className="hero-person">
+                                    <img src="https://via.placeholder.com/120" alt="Chief surgeon" />
+                                    <h5>Dr. Chanrika something</h5>
+                                    <p>Chief Surgeon</p>
+                                </div>
+                                <div className="hero-person">
+                                    <img src="https://via.placeholder.com/120" alt="Ops" />
+                                    <h5>Anna Lindqvist</h5>
+                                    <p>Head of Operations</p>
+                                </div>
+                                <div className="hero-person">
+                                    <img src="https://via.placeholder.com/120" alt="IT" />
+                                    <h5>Johan Eriksson</h5>
+                                    <p>Innovation &amp; IT</p>
+                                </div>
                             </div>
                         </div>
+                    ) : (
+                        // ✅ NORMAL LAYOUT FOR OTHER SLIDES
+                        <>
+                            {/* 14. LEFT side: text, buttons, metrics */}
+                            <div className="hero-neon-left">
+                                {/* 15. small tag/pill on top */}
+                                <div className="hero-tag">
+                                    <span className="status-dot"></span>
+                                    {current.tag}
+                                </div>
 
-                        {/* 21. slide dots */}
-                        <div className="hero-dots neon">
-                            {HERO_SLIDES.map((slide, i) => (
-                                <button
-                                    key={slide.id}
-                                    onClick={() => setActive(i)}
-                                    className={i === active ? "is-active" : ""}
-                                    aria-label={`Go to ${slide.id}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                                {/* 16. main title */}
+                                <h1 className="hero-title">{current.title}</h1>
 
-                    {/* 22. RIGHT side: glass panels change per slide */}
-                    <div className="hero-neon-right">
-                        {current.id === "services" ? (
-                            // 23. services slide
-                            <div className="glass-panel glass-panel--tall">
-                                <h4>Live departments</h4>
-                                <ul className="dept-list">
-                                    <li>
-                                        <span>🫀 Cardiology</span>
-                                        <span className="pill online">6 active</span>
-                                    </li>
-                                    <li>
-                                        <span>🧠 Neurology</span>
-                                        <span className="pill idle">2 pending</span>
-                                    </li>
-                                    <li>
-                                        <span>🦴 Orthopedics</span>
-                                        <span className="pill online">4 active</span>
-                                    </li>
-                                    <li>
-                                        <span>👶 Pediatrics</span>
-                                        <span className="pill online">3 active</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        ) : current.id === "about" ? (
-                            // 24. about slide
-                            <div className="glass-panel glass-panel--tall">
-                                <h4>Why hospitals pick us</h4>
-                                <p className="glass-text">
-                                    Secure, hosted in EU, made for Swedish workflows.
-                                </p>
-                                <ul className="about-points">
-                                    <li>✅ 20+ clinical modules</li>
-                                    <li>✅ Roles & permissions</li>
-                                    <li>✅ Realtime appointments</li>
-                                    <li>✅ API for integration</li>
-                                </ul>
-                            </div>
-                        ) : (
-                            // 25. default / welcome slide
-                            <>
-                                <div className="glass-panel">
-                                    <h4>Today’s overview</h4>
-                                    <div className="stats-inline">
-                                        <div>
-                                            <p>New patients</p>
-                                            <h3>8</h3>
-                                        </div>
-                                        <div>
-                                            <p>Appointments</p>
-                                            <h3>14</h3>
-                                        </div>
-                                        <div>
-                                            <p>Surgeries</p>
-                                            <h3>2</h3>
-                                        </div>
+                                {/* 17. subheading */}
+                                <p className="hero-subtitle">{current.subtitle}</p>
+
+                                {/* 18. description */}
+                                <p className="hero-text">{current.text}</p>
+
+                                {/* 19. main actions */}
+                                <div className="hero-actions">
+                                    <button className="btn btn-neon">{current.primary}</button>
+                                    <button className="btn btn-glass">{current.secondary}</button>
+                                </div>
+
+                                {/* 20. bottom metrics */}
+                                <div className="hero-metrics">
+                                    <div className="metric-card">
+                                        <h3>120+</h3>
+                                        <p>Active patients</p>
+                                    </div>
+                                    <div className="metric-card">
+                                        <h3>32</h3>
+                                        <p>Specialist doctors</p>
+                                    </div>
+                                    <div className="metric-card">
+                                        <h3>98%</h3>
+                                        <p>Satisfaction</p>
                                     </div>
                                 </div>
-                                <div className="glass-panel glass-panel--strip">
-                                    <p>Next available: Dr. Patel · 11:30</p>
-                                </div>
-                            </>
-                        )}
+                            </div>
+
+                            {/* 22. RIGHT side: glass panels change per slide */}
+                            <div className="hero-neon-right">
+                                {current.id === "services" ? (
+                                    // 23. services slide
+                                    <div className="glass-panel glass-panel--tall">
+                                        <h4>Live departments</h4>
+                                        <ul className="dept-list">
+                                            <li>
+                                                <span>🫀 Cardiology</span>
+                                                <span className="pill online">6 active</span>
+                                            </li>
+                                            <li>
+                                                <span>🧠 Neurology</span>
+                                                <span className="pill idle">2 pending</span>
+                                            </li>
+                                            <li>
+                                                <span>🦴 Orthopedics</span>
+                                                <span className="pill online">4 active</span>
+                                            </li>
+                                            <li>
+                                                <span>👶 Pediatrics</span>
+                                                <span className="pill online">3 active</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                ) : current.id === "about" ? (
+                                    // 24. about slide
+                                    <div className="glass-panel glass-panel--tall">
+                                        <h4>Why hospitals pick us</h4>
+                                        <p className="glass-text">
+                                            Secure, hosted in EU, made for Swedish workflows.
+                                        </p>
+                                        <ul className="about-points">
+                                            <li>✅ 20+ clinical modules</li>
+                                            <li>✅ Roles & permissions</li>
+                                            <li>✅ Realtime appointments</li>
+                                            <li>✅ API for integration</li>
+                                        </ul>
+                                    </div>
+                                ) : (
+                                    // 25. default / welcome slide
+                                    <>
+                                        <div className="glass-panel">
+                                            <h4>Today’s overview</h4>
+                                            <div className="stats-inline">
+                                                <div>
+                                                    <p>New patients</p>
+                                                    <h3>8</h3>
+                                                </div>
+                                                <div>
+                                                    <p>Appointments</p>
+                                                    <h3>14</h3>
+                                                </div>
+                                                <div>
+                                                    <p>Surgeries</p>
+                                                    <h3>2</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="glass-panel glass-panel--strip">
+                                            <p>Next available: Dr. Patel · 11:30</p>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </>
+                    )}
+
+                    {/* 21. slide dots — always visible */}
+                    <div className="hero-dots neon">
+                        {HERO_SLIDES.map((slide, i) => (
+                            <button
+                                key={slide.id}
+                                onClick={() => setActive(i)}
+                                className={i === active ? "is-active" : ""}
+                                aria-label={`Go to ${slide.id}`}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
