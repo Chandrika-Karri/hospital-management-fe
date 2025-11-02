@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import "./Home.css"; // your base styles (home-shell, section, booking-form, etc.)
+import NavBar from "../components/NavBar";
 
 type Doctor = {
   _id: string;
