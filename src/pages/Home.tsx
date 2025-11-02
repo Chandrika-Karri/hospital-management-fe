@@ -1,41 +1,49 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../components/NavBar"; // ✅ shared navbar
+// 1. bring in React + hooks
+import { useEffect, useState } from "react";
+
+// 2. bring in your shared navbar
+import NavBar from "../components/NavBar";
+
+// 3. bring in the css for this page
 import "./Home.css";
 
+// 4. define the slides that rotate
 const HERO_SLIDES = [
     {
         id: "welcome",
-        pill: "Smart hospital dashboard",
-        title: "Welcome to Healthy Hospital",
-        subtitle: "Better care, faster operations.",
-        text: "Manage doctors, patients, appointments and daily tasks from a single modern interface.",
-        primary: "Book appointment",
-        secondary: "View doctors",
+        tag: "● Smart hospital platform",
+        title: "Healthy Hospital OS",
+        subtitle: "Real-time care. Zero friction.",
+        text: "Monitor patients, doctors, and appointments in a single, intelligent cockpit.",
+        primary: "Open dashboard",
+        secondary: "View departments",
     },
     {
         id: "services",
-        pill: "What we offer",
+        tag: "● Clinical modules",
         title: "Services & departments",
-        subtitle: "From outpatient to emergency.",
-        text: "Appointments, doctor scheduling, patient registration, billing and reporting — all in one place.",
-        primary: "See services",
+        subtitle: "Modular. Secure. Fast.",
+        text: "Outpatient, ER, surgery, diagnostics, pharmacy — all connected.",
+        primary: "See modules",
         secondary: "Contact desk",
     },
     {
         id: "about",
-        pill: "About us",
-        title: "Your partner in hospital ops",
-        subtitle: "Patient-first, data-driven.",
-        text: "We help hospitals deliver better outcomes with integrated technology and a modern experience for staff.",
-        primary: "Read our story",
+        tag: "● About Healthy Hospital",
+        title: "Built for Scandinavian hospitals",
+        subtitle: "Designed for modern ops teams.",
+        text: "A future-ready platform for Swedish clinics, private care and digital health startups.",
+        primary: "Our story",
         secondary: "Meet the team",
     },
 ];
 
+// 5. main component
 export default function Home() {
+    // 6. which slide is active
     const [active, setActive] = useState(0);
 
-    // auto-rotate every 6s
+    // 7. auto-rotate every 6s
     useEffect(() => {
         const id = setInterval(() => {
             setActive((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -43,137 +51,145 @@ export default function Home() {
         return () => clearInterval(id);
     }, []);
 
+    // 8. current slide object
+    const current = HERO_SLIDES[active];
+
+    // 9. render
     return (
         <div className="home-shell">
-            <NavBar /> {/* ✅ now reused across all pages */}
+            {/* 10. top nav, reused on all pages */}
+            <NavBar />
 
-            {/* BIG ROTATING HERO */}
-            <section className="hero-modern hero-rotator">
-                {HERO_SLIDES.map((slide, index) => (
-                    <div
-                        key={slide.id}
-                        className={`hero-slide ${index === active ? "is-active" : ""}`}
-                    >
-                        <div className="hero-left">
-                            <div className="hero-pill">
-                                <span>●</span> {slide.pill}
+            {/* 11. full-width dark neon background */}
+            <section className="hero-neon-bg">
+                {/* 12. centered content (max-width) */}
+                <div className="hero-neon-container">
+                    {/* 13. glowing background orbs */}
+                    <div className="hero-orb orb-1"></div>
+                    <div className="hero-orb orb-2"></div>
+                    <div className="hero-orb orb-3"></div>
+
+                    {/* 14. LEFT side: text, buttons, metrics */}
+                    <div className="hero-neon-left">
+                        {/* 15. small tag/pill on top */}
+                        <div className="hero-tag">
+                            <span className="status-dot"></span>
+                            {current.tag}
+                        </div>
+
+                        {/* 16. main title */}
+                        <h1 className="hero-title">{current.title}</h1>
+
+                        {/* 17. subheading */}
+                        <p className="hero-subtitle">{current.subtitle}</p>
+
+                        {/* 18. description */}
+                        <p className="hero-text">{current.text}</p>
+
+                        {/* 19. main actions */}
+                        <div className="hero-actions">
+                            <button className="btn btn-neon">{current.primary}</button>
+                            <button className="btn btn-glass">{current.secondary}</button>
+                        </div>
+
+                        {/* 20. bottom metrics */}
+                        <div className="hero-metrics">
+                            <div className="metric-card">
+                                <h3>120+</h3>
+                                <p>Active patients</p>
                             </div>
-
-                            <h1>{slide.title}</h1>
-                            <h2 className="hero-subtitle">{slide.subtitle}</h2>
-                            <p className="hero-sub">{slide.text}</p>
-
-                            <div className="hero-buttons">
-                                <button className="btn btn-primary">{slide.primary}</button>
-                                <button className="btn btn-outline">{slide.secondary}</button>
+                            <div className="metric-card">
+                                <h3>32</h3>
+                                <p>Specialist doctors</p>
                             </div>
-
-                            <div className="hero-stats">
-                                <div>
-                                    <h3>120+</h3>
-                                    <p>Active patients</p>
-                                </div>
-                                <div>
-                                    <h3>32</h3>
-                                    <p>Specialist doctors</p>
-                                </div>
-                                <div>
-                                    <h3>98%</h3>
-                                    <p>Satisfaction</p>
-                                </div>
+                            <div className="metric-card">
+                                <h3>98%</h3>
+                                <p>Satisfaction</p>
                             </div>
                         </div>
 
-                        {/* RIGHT SIDE */}
-                        <div className="hero-right">
-                            {slide.id === "services" ? (
-                                <div className="hero-card services-card">
-                                    <h4>Our Departments</h4>
-                                    <div className="departments-grid">
-                                        <div className="dept-item">
-                                            <h5>🫀 Cardiology</h5>
-                                            <p>Heart check-ups & advanced care.</p>
-                                        </div>
-                                        <div className="dept-item">
-                                            <h5>🧠 Neurology</h5>
-                                            <p>Brain and nervous system care.</p>
-                                        </div>
-                                        <div className="dept-item">
-                                            <h5>🦴 Orthopedics</h5>
-                                            <p>Joint, bone, and spine treatments.</p>
-                                        </div>
-                                        <div className="dept-item">
-                                            <h5>👶 Pediatrics</h5>
-                                            <p>Child and newborn health specialists.</p>
-                                        </div>
-                                        <div className="dept-item">
-                                            <h5>🦷 Dental</h5>
-                                            <p>Full dental care and surgery.</p>
-                                        </div>
-                                        <div className="dept-item">
-                                            <h5>🩺 General Medicine</h5>
-                                            <p>Routine check-ups and diagnostics.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : slide.id === "about" ? (
-                                <div className="hero-card about-card">
-                                    <h4>About Healthy Hospital</h4>
-                                    <p>
-                                        We combine compassionate care with modern clinical
-                                        operations so staff can focus on patients, not paperwork.
-                                    </p>
-                                    <ul className="about-list">
-                                        <li>🏥 20+ specialized departments</li>
-                                        <li>👩‍⚕️ Expert, certified staff</li>
-                                        <li>🌐 Integrated digital records</li>
-                                        <li>💙 Community-first mindset</li>
-                                    </ul>
-                                    <p>
-                                        Our mission: deliver better outcomes, faster, for everyone.
-                                    </p>
-                                </div>
-                            ) : (
-                                <>
-                                    <div className="hero-card stats-card">
-                                        <h4>Today’s overview</h4>
-                                        <div className="stats-grid">
-                                            <div>
-                                                <p>New patients</p>
-                                                <h3>8</h3>
-                                            </div>
-                                            <div>
-                                                <p>Appointments</p>
-                                                <h3>14</h3>
-                                            </div>
-                                            <div>
-                                                <p>Surgeries</p>
-                                                <h3>2</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="hero-card hero-badge">
-                                        Next available: Dr. Patel · 11:30 AM
-                                    </div>
-                                </>
-                            )}
+                        {/* 21. slide dots */}
+                        <div className="hero-dots neon">
+                            {HERO_SLIDES.map((slide, i) => (
+                                <button
+                                    key={slide.id}
+                                    onClick={() => setActive(i)}
+                                    className={i === active ? "is-active" : ""}
+                                    aria-label={`Go to ${slide.id}`}
+                                />
+                            ))}
                         </div>
                     </div>
-                ))}
 
-                {/* dots */}
-                <div className="hero-dots">
-                    {HERO_SLIDES.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => setActive(i)}
-                            className={i === active ? "is-active" : ""}
-                        />
-                    ))}
+                    {/* 22. RIGHT side: glass panels change per slide */}
+                    <div className="hero-neon-right">
+                        {current.id === "services" ? (
+                            // 23. services slide
+                            <div className="glass-panel glass-panel--tall">
+                                <h4>Live departments</h4>
+                                <ul className="dept-list">
+                                    <li>
+                                        <span>🫀 Cardiology</span>
+                                        <span className="pill online">6 active</span>
+                                    </li>
+                                    <li>
+                                        <span>🧠 Neurology</span>
+                                        <span className="pill idle">2 pending</span>
+                                    </li>
+                                    <li>
+                                        <span>🦴 Orthopedics</span>
+                                        <span className="pill online">4 active</span>
+                                    </li>
+                                    <li>
+                                        <span>👶 Pediatrics</span>
+                                        <span className="pill online">3 active</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : current.id === "about" ? (
+                            // 24. about slide
+                            <div className="glass-panel glass-panel--tall">
+                                <h4>Why hospitals pick us</h4>
+                                <p className="glass-text">
+                                    Secure, hosted in EU, made for Swedish workflows.
+                                </p>
+                                <ul className="about-points">
+                                    <li>✅ 20+ clinical modules</li>
+                                    <li>✅ Roles & permissions</li>
+                                    <li>✅ Realtime appointments</li>
+                                    <li>✅ API for integration</li>
+                                </ul>
+                            </div>
+                        ) : (
+                            // 25. default / welcome slide
+                            <>
+                                <div className="glass-panel">
+                                    <h4>Today’s overview</h4>
+                                    <div className="stats-inline">
+                                        <div>
+                                            <p>New patients</p>
+                                            <h3>8</h3>
+                                        </div>
+                                        <div>
+                                            <p>Appointments</p>
+                                            <h3>14</h3>
+                                        </div>
+                                        <div>
+                                            <p>Surgeries</p>
+                                            <h3>2</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="glass-panel glass-panel--strip">
+                                    <p>Next available: Dr. Patel · 11:30</p>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </section>
 
-            {/* Services section */}
+            {/* 26. normal content continues */}
             <section className="section section-services">
                 <div className="section-head">
                     <h2>Hospital services</h2>
@@ -198,7 +214,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Footer */}
+            {/* 27. footer */}
             <footer className="footer">
                 © {new Date().getFullYear()} Healthy Hospital — All rights reserved.
             </footer>
