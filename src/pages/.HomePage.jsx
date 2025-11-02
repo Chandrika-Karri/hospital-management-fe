@@ -1,6 +1,6 @@
-// src/pages/HomePage.jsx
+// src/pages/.HomePage.jsx
 import React, { useEffect, useState } from "react";
-import "./HomePage.css";
+import "./Home.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
