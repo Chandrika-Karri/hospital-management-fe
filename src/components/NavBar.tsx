@@ -1,6 +1,6 @@
 // src/components/NavBar.tsx
 import { Link, useLocation } from "react-router-dom";
-import "../pages/Home.css"; // or "../pages/HomePage.css" – whatever your file is called
+import "../pages/Home.css";
 
 export default function NavBar() {
     const location = useLocation();
@@ -9,11 +9,13 @@ export default function NavBar() {
 
     return (
         <header className="topbar">
+            {/* Logo */}
             <div className="logo">
                 <span className="logo-dot"></span>
                 Healthify Hospital
             </div>
 
+            {/* Desktop navigation links only */}
             <ul className="navlinks">
                 <li>
                     <Link className={isActive("/") ? "nav-active" : ""} to="/">
@@ -21,26 +23,17 @@ export default function NavBar() {
                     </Link>
                 </li>
                 <li>
-                    <Link
-                        className={isActive("/register-patient") ? "nav-active" : ""}
-                        to="/register-patient"
-                    >
+                    <Link className={isActive("/register-patient") ? "nav-active" : ""} to="/register-patient">
                         Patient Registration
                     </Link>
                 </li>
                 <li>
-                    <Link
-                        className={isActive("/register-doctor") ? "nav-active" : ""}
-                        to="/register-doctor"
-                    >
+                    <Link className={isActive("/register-doctor") ? "nav-active" : ""} to="/register-doctor">
                         Doctor Registration
                     </Link>
                 </li>
                 <li>
-                    <Link
-                        className={isActive("/contact-details") ? "nav-active" : ""}
-                        to="/contact-details"
-                    >
+                    <Link className={isActive("/contact-details") ? "nav-active" : ""} to="/contact-details">
                         Contact Us
                     </Link>
                 </li>
