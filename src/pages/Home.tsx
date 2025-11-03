@@ -12,7 +12,7 @@ const HERO_SLIDES = [
     {
         id: "welcome",
         tag: "● Smart hospital platform",
-        title: "Healthy Hospital OS",
+        title: "Healthify Hospital OS",
         subtitle: "Real-time care. Zero friction.",
         text: "Monitor patients, doctors, and appointments in a single, intelligent cockpit.",
         primary: "Open dashboard",
