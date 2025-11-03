@@ -1,4 +1,6 @@
+import "./Home.css"; //base css file
 import { useState } from "react";
+import NavBar from "../components/NavBar.tsx";
 
 export default function RegisterDoctor() {
   const [name, setName] = useState("");
@@ -17,7 +19,7 @@ export default function RegisterDoctor() {
       specialization,
       email,
       phone,
-      experience: Number(experience), // convert to number
+      experience: Number(experience),
       availableFrom,
       availableTo,
     };
@@ -34,8 +36,9 @@ export default function RegisterDoctor() {
       if (response.ok) {
         const savedDoctor = await response.json();
         console.log("Saved doctor:", savedDoctor);
-
         alert("Doctor registered successfully!");
+
+        // Reset form
         setName("");
         setSpecialization("");
         setEmail("");
@@ -55,67 +58,104 @@ export default function RegisterDoctor() {
   }
 
   return (
-    <div>
-      <h2>Doctor Registration</h2>
+      <div className="home-shell">
+        <NavBar/>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Doctor Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <section className="section section-booking">
+          <div className="booking-left">
+            <h2>Register a Doctor</h2>
+            <p>Fill out the form below to add a new doctor to your hospital database.</p>
+            <ul className="booking-points">
+              <li>Verified email contact</li>
+              <li>Schedule setup</li>
+              <li>Easy editing later</li>
+            </ul>
+          </div>
 
-        <input
-          placeholder="Specialization"
-          value={specialization}
-          onChange={(e) => setSpecialization(e.target.value)}
-          required
-        />
+          <form className="booking-form" onSubmit={handleSubmit}>
+            <label>
+              Full Name
+              <input
+                  type="text"
+                  placeholder="Dr. Sarah Johnson"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+              />
+            </label>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+            <label>
+              Specialization
+              <input
+                  type="text"
+                  placeholder="Cardiology, Pediatrics..."
+                  value={specialization}
+                  onChange={(e) => setSpecialization(e.target.value)}
+                  required
+              />
+            </label>
 
-        <input
-          type="tel"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-        />
+            <label>
+              Email
+              <input
+                  type="email"
+                  placeholder="doctor@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+              />
+            </label>
 
-        <input
-          type="number"
-          placeholder="Experience (years)"
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
-        />
+            <label>
+              Phone Number
+              <input
+                  type="tel"
+                  placeholder="123-456-7890"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+              />
+            </label>
 
-        <label>
-          Available From:
-          <input
-            type="time"
-            value={availableFrom}
-            onChange={(e) => setAvailableFrom(e.target.value)}
-          />
-        </label>
+            <label>
+              Experience (years)
+              <input
+                  type="number"
+                  placeholder="5"
+                  value={experience}
+                  onChange={(e) => setExperience(e.target.value)}
+              />
+            </label>
 
-        <label>
-          Available To:
-          <input
-            type="time"
-            value={availableTo}
-            onChange={(e) => setAvailableTo(e.target.value)}
-          />
-        </label>
+            <div className="availability-row">
+              <label>
+                Available From
+                <input
+                    type="time"
+                    value={availableFrom}
+                    onChange={(e) => setAvailableFrom(e.target.value)}
+                />
+              </label>
 
-        <button type="submit">Register Doctor</button>
-      </form>
-    </div>
+              <label>
+                Available To
+                <input
+                    type="time"
+                    value={availableTo}
+                    onChange={(e) => setAvailableTo(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <button className="btn btn-primary" type="submit">
+              Register Doctor
+            </button>
+          </form>
+        </section>
+
+        <footer className="footer">
+          © {new Date().getFullYear()} Healthy Hospital — All rights reserved.
+        </footer>
+      </div>
   );
 }
