@@ -11,7 +11,7 @@ export default function NavBar() {
         <header className="topbar">
             <div className="logo">
                 <span className="logo-dot"></span>
-                Healthy Hospital
+                Healthify Hospital
             </div>
 
             <ul className="navlinks">
@@ -38,8 +38,8 @@ export default function NavBar() {
                 </li>
                 <li>
                     <Link
-                        className={isActive("/contact") ? "nav-active" : ""}
-                        to="/contact"
+                        className={isActive("/contact-details") ? "nav-active" : ""}
+                        to="/contact-details"
                     >
                         Contact Us
                     </Link>
