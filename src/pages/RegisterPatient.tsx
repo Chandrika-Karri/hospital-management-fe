@@ -75,56 +75,72 @@ export default function RegisterPatient() {
       <NavBar />
       <section className="section section-booking">
         <div className="booking-left">
-          <h2>Patient Appointment Booking</h2>
-          <p>Send a request and our staff will assign the right doctor.</p>
-        </div>
-        <form className="booking-form" onSubmit={handleSubmit}>
-          <label>
-            Patient Name
-            <input value={name} onChange={(e) => setName(e.target.value)} required />
-          </label>
-          <label>
-            Doctor
-            <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)} required>
-              <option value="">Select Doctor</option>
-              {doctors.map((doc) => (
-                <option key={doc._id} value={doc._id}>
-                  {doc.name} {doc.specialization ? `(${doc.specialization})` : ""}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Appointment Date
-            <DatePicker
-              selected={date ? new Date(date) : null}
-              onChange={(d) => setDate(d ? d.toISOString().split("T")[0] : "")}
-              dateFormat="yyyy-MM-dd"
-              minDate={new Date()}
-              placeholderText="Select appointment date"
+          <div className="register-left flex flex-col justify-center items-start space-y-6">
+            <img
+                src="/src/img/booking.png"
+                alt="Doctor illustration"
+                style={{width: "600px", height: "400px"}}
+                className="w-full max-w-md rounded-2xl shadow-md"
             />
-          </label>
-          <label>
-            Time Slot
-            <select value={time} onChange={(e) => setTime(e.target.value)} required>
-              <option value="">Select Time Slot</option>
-              {slots.map((slot) => (
-                <option key={slot.time} value={slot.time} disabled={slot.isBooked} style={{color: slot.isBooked ? "red" : "green"}}>
-                  {slot.time} {slot.isBooked ? "(Booked)" : "(Available)"}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Description
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-          </label>
-          <label>
-            <input type="checkbox" checked={emergency} onChange={(e) => setEmergency(e.target.checked)} /> Emergency
-          </label>
-          <button className="btn btn-primary" type="submit">Book Appointment</button>
-        </form>
+          </div>
+        </div>
+          <form className="booking-form" onSubmit={handleSubmit}>
+
+            <label>
+              Patient Name
+              <input value={name} onChange={(e) => setName(e.target.value)} required/>
+            </label>
+            <label>
+              Doctor
+              <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)} required>
+                <option value="">Select Doctor</option>
+                {doctors.map((doc) => (
+                    <option key={doc._id} value={doc._id}>
+                      {doc.name} {doc.specialization ? `(${doc.specialization})` : ""}
+                    </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Appointment Date
+              <DatePicker
+                  selected={date ? new Date(date) : null}
+                  onChange={(d) => setDate(d ? d.toISOString().split("T")[0] : "")}
+                  dateFormat="yyyy-MM-dd"
+                  minDate={new Date()}
+                  placeholderText="Select appointment date"
+              />
+            </label>
+            <label>
+              Time Slot
+              <select value={time} onChange={(e) => setTime(e.target.value)} required>
+                <option value="">Select Time Slot</option>
+                {slots.map((slot) => (
+                    <option key={slot.time} value={slot.time} disabled={slot.isBooked}
+                            style={{color: slot.isBooked ? "red" : "green"}}>
+                      {slot.time} {slot.isBooked ? "(Booked)" : "(Available)"}
+                    </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Description
+              <textarea value={description} onChange={(e) => setDescription(e.target.value)}/>
+            </label>
+            <div className="form-check">
+              <input
+                  id="emergency"
+                  type="checkbox"
+                  checked={emergency}
+                  onChange={(e) => setEmergency(e.target.checked)}
+              />
+              <label htmlFor="emergency">Emergency</label>
+            </div>
+
+
+            <button className="btn btn-primary" type="submit">Book Appointment</button>
+          </form>
       </section>
     </div>
-  );
+);
 }
