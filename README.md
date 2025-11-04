@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+Hospital Management System
+A Hospital Management Web Application designed to simplify the management of hospital operations such as doctor registration, patient appointments, and scheduling.
+It allows administrators to register doctors, patients to book appointments, and provides an easy-to-use interface built with React, Node.js,Express and MongoDB.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Features and CRUD Operations
+1.Doctor registration with specialization and available hours (CREATE Operation)
+2.Patient appointment booking with date, time slot and emergency availability and also after successful appointment booking the patient has option to change the date and time or cancel the appointment(CREATE, POST, GET, DELETE)
+3.In the contact page there is information about hospital like phone number, email,address, and available doctors at the hopital (GET)
+4.Real-time synchronization between frontend and backend.
+5.Responsive, clean, and modern UI built with React and Global CSS for styling Home and subpages.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📦 Required Node Packages
+Frontend
+react
+react-dom
+react-router-dom
+react-datepicker
+typescript
+vite
+Backend
+express
+mongoose
+cors
+dotenv
+nodemon
+(These are installed using npm)
 
-## React Compiler
+🎨 Graphic Profile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Element             | Description                                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Design Style**    | Modern healthcare aesthetic with soft glassmorphism and neon-accented gradients                            |
+| **Primary Palette** | `#0f172a` (Midnight Navy), `#0e7490` (Teal Primary), `#f97316` (Accent Orange), `#f8fafc` (Soft White)     |
+| **Typography**      | Rounded, clean sans-serif (system default). Emphasis on readable medium weights.                           |
+| **Layout System**   | Max-width container (1180px), responsive grid and flex layouts                                             |
+| **UI Motif**        | Rounded edges (`--radius-md` / `--radius-lg`), glowing accents, subtle drop shadows, and gradient surfaces |
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer             | Color / Effect                                            | Purpose                                     |
+| ----------------- | ----------------------------------------------------      | ------------------------------------------- |
+| **Background**    | `radial-gradient(circle at 0% 0%, #e0f2fe → #ffffff)`| Gentle medical softness                     |
+| **Surface**       | `rgba(248, 250, 252, 0.65)`                            | Frosted glass cards                         |
+| **Accent (Neon)** | `#0ea5e9`, `#22d3ee`, `#6366f1`                          | Modern “tech-health” energy                 |
+| **Text**          | `#0f172a` (dark), `#94a3b8` (muted secondary)            | High readability on light and dark surfaces |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+🌿 Branch Structure
+Branch	                                   Purpose
+main	                                     Stable production-ready code
+feature/appointment-page	                 For patient registration
+confirm-booking                            For confirming, changing and cancelling the patient appointment
+dev-1                                      Global styling for home and subpages
+kanisha-contactpage                        Shows info related to the hospital like email,phone no. and also displays the registered doctors
+kanisha-contactpage-v2                     For adding pictures for the registered doctors
+ 
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🗄️ Database Structure
+MongoDB Collections
+doctors
+{
+  "_id": "ObjectId",
+  "name": "Dr. John Smith",
+  "specialization": "Cardiology",
+  "email": "john@example.com",
+  "phone": "9876543210",
+  "experience": 5,
+  "availableFrom": "09:00",
+  "availableTo": "17:00"
+}
+patients
+{
+  "_id": "ObjectId",
+  "name": "Alice Johnson",
+  "doctorId": "ObjectId",
+  "date": "2025-11-05",
+  "time": "10:30",
+  "description": "Chest pain and fatigue",
+  "emergency": false
+}
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🧩 Upcoming Features
+Add admin login for doctor registration form using json web token
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🧠 Author & Contributors
+Developed by Chandrika, Ashwini, Kanisha, Jannatul 
+
