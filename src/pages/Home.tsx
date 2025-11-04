@@ -81,31 +81,31 @@ export default function Home() {
                     {current.id === "heroes" ? (
                         // ✅ SPECIAL FULL-WIDTH LAYOUT FOR "MEET THE HEROES"
                         <div className="hero-heroes-full">
-                            <h2 className="heroes-title">Meet the Heroes</h2>
+                            <h2 className="heroes-title">The People Powering Our Vision</h2>
                             <p className="heroes-sub">
                                 Passionate leaders dedicated to modern healthcare.
                             </p>
 
                             <div className="heroes-row">
                                 <div className="hero-person">
-                                    <img src="/src/img/jf.jpg" alt="Director" />
-                                    <h5>Dr. Jannatul Ferdous</h5>
+                                    <img src="/src/img/Ashwini.jpg" alt="Director" />
+                                    <h5>Dr. Ashwini Shirsat</h5>
                                     <p>Medical Director</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="/src/img/ch2.jpg" alt="Chief surgeon" />
+                                    <img src="/src/img/chandrika.jpg" alt="Chief surgeon" />
                                     <h5>Dr. Chandrika Karri</h5>
                                     <p>Chief Surgeon</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="/src/img/ah.jpg" alt="Ops" />
-                                    <h5>Dr. Ashwini Shirsat</h5>
+                                    <img src="/src/img/jannatul.jpg" alt="Ops" />
+                                    <h5>Dr. Jannatul Ferdous</h5>
                                     <p>Head of Operations</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="/src/img/ka.jpg" alt="IT" />
-                                    <h5>Dr. Kansiha Arora</h5>
-                                    <p>Head of IT</p>
+                                    <img src="/src/img/kanisha.jpg" alt="IT" />
+                                    <h5>Dr. Kanisha Arora</h5>
+                                    <p>Head of Innovation &amp; IT</p>
                                 </div>
                             </div>
                         </div>
