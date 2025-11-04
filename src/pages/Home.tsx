@@ -93,19 +93,19 @@ export default function Home() {
                                     <p>Medical Director</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="https://via.placeholder.com/120" alt="Chief surgeon" />
-                                    <h5>Dr. Chanrika something</h5>
+                                    <img src="/src/img/ch2.jpg" alt="Chief surgeon" />
+                                    <h5>Dr. Chandrika Karri</h5>
                                     <p>Chief Surgeon</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="https://via.placeholder.com/120" alt="Ops" />
-                                    <h5>Anna Lindqvist</h5>
+                                    <img src="/src/img/ah.jpg" alt="Ops" />
+                                    <h5>Dr. Ashwini Shirsat</h5>
                                     <p>Head of Operations</p>
                                 </div>
                                 <div className="hero-person">
-                                    <img src="https://via.placeholder.com/120" alt="IT" />
-                                    <h5>Johan Eriksson</h5>
-                                    <p>Innovation &amp; IT</p>
+                                    <img src="/src/img/ka.jpg" alt="IT" />
+                                    <h5>Dr. Kansiha Arora</h5>
+                                    <p>Head of IT</p>
                                 </div>
                             </div>
                         </div>
