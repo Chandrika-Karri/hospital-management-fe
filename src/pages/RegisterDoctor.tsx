@@ -63,13 +63,14 @@ export default function RegisterDoctor() {
 
         <section className="section section-booking">
           <div className="booking-left">
-            <h2>Register a Doctor</h2>
-            <p>Fill out the form below to add a new doctor to your hospital database.</p>
-            <ul className="booking-points">
-              <li>Verified email contact</li>
-              <li>Schedule setup</li>
-              <li>Easy editing later</li>
-            </ul>
+            <div className="register-left flex flex-col justify-center items-start space-y-6">
+              <img
+                  src="/src/img/register.png"
+                  alt="Doctor illustration"
+                  style={{width: "600px", height: "400px"}}
+                  className="w-full max-w-md rounded-2xl shadow-md"
+              />
+            </div>
           </div>
 
           <form className="booking-form" onSubmit={handleSubmit}>

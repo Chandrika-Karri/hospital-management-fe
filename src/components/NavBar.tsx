@@ -9,11 +9,18 @@ export default function NavBar() {
 
     return (
         <header className="topbar">
-            {/* Logo */}
-            <div className="logo">
-                <span className="logo-dot"></span>
-                Healthify Hospital
+            <div className="logo-section flex items-center gap-1">
+                <img
+                    src="/src/img/logo.png"
+                    alt="Healthify General Hospital Logo"
+                    style={{width: "250px", height: "75px"}}
+                    className="hospital-logo object-contain"
+                />
+                <p className="hospital-tagline text-sm text-blue-700 -ml-1">
+                    Caring for you and your loved ones since 1998
+                </p>
             </div>
+
 
             {/* Desktop navigation links only */}
             <ul className="navlinks">

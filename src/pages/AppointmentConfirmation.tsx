@@ -169,10 +169,10 @@ export default function AppointmentConfirmation() {
               <button className="btn btn-primary" onClick={handleConfirm}>
                 Confirm
               </button>
-              <button className="btn btn-outline" onClick={handleChangeTime}>
+              <button className="btn btn-primary" onClick={handleChangeTime}>
                 Change Time
               </button>
-              <button className="btn btn-ghost" onClick={handleCancel}>
+              <button className="btn btn-primary" onClick={handleCancel}>
                 Cancel
               </button>
             </div>

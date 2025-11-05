@@ -53,54 +53,64 @@ export default function Contact() {
             <div className="hero-orb orb-3"></div>
 
             <div className="hero-neon-left">
-              <div className="hero-tag">
-                <span className="status-dot"></span> ● Get in touch
+              <div className="logo-section flex items-center gap-4">
+                <img
+                    src="/src/img/h_building.png"
+                    alt="Healthify General Hospital Logo"
+                    width={350}
+                    height={350}
+                    className="hospital-logo"
+                />
               </div>
-              <h1 className="hero-title">Healthify General Hospital</h1>
-              <p className="hero-subtitle">
-                Caring for you and your loved ones since 1998
-              </p>
-              <p className="hero-text">
-                We believe every patient deserves exceptional care — reach out to
-                us anytime.
-              </p>
+                <div className="hero-actions flex justify-center mt-6">
+                  <a
+                      href="https://maps.app.goo.gl/7jpt9RsCpTqfmejT6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-glass"
+                  >
+                    📍 Find Us
+                  </a>
+                </div>
+              </div>
 
-              <div className="hero-actions">
-                <a href="mailto:info@healthifyhospital.com" className="btn btn-neon">
-                  ✉️ Email Us
-                </a>
-                <a
-                    href="https://www.google.com/maps?q=1234+Wellness+Avenue,+T-Centralen,+Stockholm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-glass"
-                >
-                  📍 Find Us
-                </a>
+              <div className="hero-neon-right">
+                <div className="glass-panel glass-panel--tall">
+                  <h4>Contact Information</h4>
+                  <ul className="about-points">
+                    <li>
+                      <strong>Email:</strong>{" "}
+                      <a href="mailto:info@healthifyhospital.com">
+                        info@healthifyhospital.com <br/>
+
+                        <br/>
+                      </a>
+                    </li>
+                    <li>
+                      <strong>Phone:</strong>{" "}
+                      <a href="tel:+46728456789">+46 72 845 6789</a> <br/>
+                      <br/>
+                    </li>
+                    <li>
+                      <strong>Head Office:</strong> <br/>
+                      1234 Wellness Avenue <br/>
+                      Stockholm, Sweden <br/>
+                      <br/>
+                    </li>
+                    <li>
+                      <strong>Emergency Hotline (24/7):</strong> +46 415 5559110
+                      <br/> <br/>
+                    </li>
+                    <li>
+                      <strong>Operating Hours:</strong> <br/>
+                      Monday – Friday: 7:00 AM – 9:00 PM <br/>
+                      Saturday: 8:00 AM – 6:00 PM <br/>
+                      Sunday: Emergency Department Only (24 Hours)
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-
-            <div className="hero-neon-right">
-              <div className="glass-panel glass-panel--tall">
-                <h4>Contact Information</h4>
-                <ul className="about-points">
-                  <li>
-                    <strong>Email:</strong>{" "}
-                    <a href="mailto:info@healthifyhospital.com">
-                      info@healthifyhospital.com
-                    </a>
-                  </li>
-                  <li>
-                    <strong>Phone:</strong>{" "}
-                    <a href="tel:+46728456789">+46 72 845 6789</a>
-                  </li>
-                  <li>
-                    <strong>Address:</strong> 1234 Wellness Avenue, Stockholm
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* DOCTORS SECTION */}
